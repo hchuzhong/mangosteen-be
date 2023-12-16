@@ -1,4 +1,6 @@
 FROM ruby:3.0.0
+# used in M1 chips
+# FROM --platform=linux/amd64 ruby:3.0.0
 
 ENV RAILS_ENV production
 RUN mkdir /mangosteen
