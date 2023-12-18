@@ -1,6 +1,7 @@
 class UserMailer < ApplicationMailer
-    def welcome_email(code)
-        @code = code
-        mail(to:'352995096@qq.com', subject: 'Welcome to My Awesome Site')
+    def welcome_email(email)
+        validation_code = ValidationCode.order(created_at: :desc).find_by_email(email)
+        @code = validation_code.code
+        mail(to: email, subject: 'Mangosteen Validation Code')
     end
 end
