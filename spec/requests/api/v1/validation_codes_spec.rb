@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "ValidationCodes", type: :request do
   describe "send validation_codes" do
-    it "can be sended" do
+    it "return 429 with too many requests" do
       post '/api/v1/validation_codes', params: {email: 'hchuzhong@163.com'}
       expect(response).to have_http_status(200)
+      post '/api/v1/validation_codes', params: {email: 'hchuzhong@163.com'}
+      expect(response).to have_http_status(429)
     end
   end
 end
