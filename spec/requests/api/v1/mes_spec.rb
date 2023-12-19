@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Me", type: :request do
   describe "get current user" do
-    it "get" do
+    it "get after sign in successfully" do
       user = User.create email: 'hchuzhong@163.com'
       post '/api/v1/session', params: {email: 'hchuzhong@163.com', code: '123456'}
       json = JSON.parse response.body
