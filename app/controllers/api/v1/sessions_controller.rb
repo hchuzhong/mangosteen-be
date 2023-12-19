@@ -8,15 +8,7 @@ class Api::V1::SessionsController < ApplicationController
             canSignin = ValidationCode.exists? email: params[:email], code: params[:code], used_at: nil
             return render status: :unauthorized unless canSignin
         end
-        user = User.find_by_email params[:email]
-        if user.nil?
-            render status: :not_found, json: {error: "User not exists"}
-        else
-            payload = { user_id: user.id }
-            token = JWT.encode payload, Rails.application.credentials.hmac_secret, 'HS256'
-            render status: :ok, json: {
-                jwt: token
-            }
-        end
+        user = User.find_or_create_by email: params[:email]
+        render status: :ok, json: { jwt: user.generate_jwt }
     end
 end
