@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Session API</title>
+    <title>Tags API</title>
     <meta charset="utf-8">
     <style>
       
@@ -106,75 +106,28 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>Session API</h1>
+      <h1>Tags API</h1>
 
       <div class="article">
-        <h2>sign in</h2>
-        <h3>POST /api/v1/session</h3>
+        <h2>delete tag</h2>
+        <h3>DELETE /api/v1/tags/:id</h3>
 
-          <h3>Parameters</h3>
-          <table class="parameters table table-striped table-bordered table-condensed">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="required">
-                    <span class="name">email</span>
-                </td>
-                <td>
-                  <span class="description">Email</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="required">
-                    <span class="name">code</span>
-                </td>
-                <td>
-                  <span class="description">Validation Code</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
-          <h3>Response Fields</h3>
-          <table class="response-fields table table-striped table-bordered table-condensed">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                    <span class="name">jwt</span>
-                </td>
-                <td>
-                  <span class="description">JWT Token for user validation</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
           <h3>Request</h3>
 
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTQsImV4cCI6MTcwMzA2Mzc3OH0.HA95INu80cQbLj7zUraicooqXaY42vimILxhGyOS2gw
 Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /api/v1/session</pre>
+          <pre class="request route highlight">DELETE /api/v1/tags/537</pre>
 
 
-            <h4>Body</h4>
-            <pre class="request body">{"email":"test1@qq.com","code":"123456"}</pre>
 
 
             <h3>Response</h3>
@@ -187,16 +140,24 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;886221afbc3cc3d66d659f1d64081c88&quot;
+ETag: W/&quot;32256b988fbba3978a217c4a3078fc24&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 3a9e98b3-0872-477d-8e39-cf8457052084
-X-Runtime: 0.013275
-Content-Length: 118</pre>
+X-Request-Id: 791e1753-c6de-4bb9-aed7-c68190ca1bc2
+X-Runtime: 0.011479
+Content-Length: 193</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
-  &quot;jwt&quot;: &quot;eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTAsImV4cCI6MTcwMzA2Mzc3OH0.UCdOLJ4P0C2PVU1I3Te6DXCBvH6q-LxVejCn5MsSrSI&quot;
+  &quot;resource&quot;: {
+    &quot;deleted_at&quot;: &quot;2023-12-20T07:16:18.608Z&quot;,
+    &quot;id&quot;: 537,
+    &quot;user_id&quot;: 154,
+    &quot;name&quot;: &quot;Tag name&quot;,
+    &quot;sign&quot;: &quot;Tag sign&quot;,
+    &quot;created_at&quot;: &quot;2023-12-20T07:16:18.599Z&quot;,
+    &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.611Z&quot;
+  }
 }</pre>
       </div>
     </div>
