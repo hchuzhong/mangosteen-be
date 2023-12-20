@@ -110,27 +110,8 @@ table th, table td {
 
       <div class="article">
         <h2>get tag</h2>
-        <h3>GET /api/v1/tags</h3>
+        <h3>GET /api/v1/tags/:id</h3>
 
-          <h3>Parameters</h3>
-          <table class="parameters table table-striped table-bordered table-condensed">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                    <span class="name">page</span>
-                </td>
-                <td>
-                  <span class="description">Page number</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
           <h3>Response Fields</h3>
           <table class="response-fields table table-striped table-bordered table-condensed">
@@ -188,14 +169,14 @@ table th, table td {
 
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTEsImV4cCI6MTcwMzA2Mzc3OH0.cadfrGngoW7ZBB8-fMt5h_08s-vOqKE0tgvK6f2MIaI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyNTksImV4cCI6MTcwMzA2NDYzMH0.mkK-W_hi9U7CdKO_QJ-4qQWqbj0dGJPMdJJmyAwh234
 Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">GET /api/v1/tags</pre>
+          <pre class="request route highlight">GET /api/v1/tags/734</pre>
 
 
 
@@ -210,111 +191,23 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;f20f4730560956295fb9e3fdde385e6a&quot;
+ETag: W/&quot;9b6ffb1320d390bb5021fd7aedc14570&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 99cfe70d-9232-4295-a090-f6c0677e0dba
-X-Runtime: 0.014788
-Content-Length: 1509</pre>
+X-Request-Id: 673d9ec2-e696-4926-99e6-b39580dcd4b2
+X-Runtime: 0.041422
+Content-Length: 171</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
-  &quot;resources&quot;: [
-    {
-      &quot;id&quot;: 524,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.407Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.407Z&quot;
-    },
-    {
-      &quot;id&quot;: 525,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.419Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.419Z&quot;
-    },
-    {
-      &quot;id&quot;: 526,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.484Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.484Z&quot;
-    },
-    {
-      &quot;id&quot;: 527,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.489Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.489Z&quot;
-    },
-    {
-      &quot;id&quot;: 528,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.494Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.494Z&quot;
-    },
-    {
-      &quot;id&quot;: 529,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.498Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.498Z&quot;
-    },
-    {
-      &quot;id&quot;: 530,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.502Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.502Z&quot;
-    },
-    {
-      &quot;id&quot;: 531,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.506Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.506Z&quot;
-    },
-    {
-      &quot;id&quot;: 532,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.511Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.511Z&quot;
-    },
-    {
-      &quot;id&quot;: 533,
-      &quot;user_id&quot;: 151,
-      &quot;name&quot;: &quot;x&quot;,
-      &quot;sign&quot;: &quot;x&quot;,
-      &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-20T07:16:18.515Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-20T07:16:18.515Z&quot;
-    }
-  ],
-  &quot;pager&quot;: {
-    &quot;page&quot;: 1,
-    &quot;per_page&quot;: 10,
-    &quot;count&quot;: 11
+  &quot;resource&quot;: {
+    &quot;id&quot;: 734,
+    &quot;user_id&quot;: 259,
+    &quot;name&quot;: &quot;Tag name&quot;,
+    &quot;sign&quot;: &quot;Tag sign&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;created_at&quot;: &quot;2023-12-20T07:30:30.118Z&quot;,
+    &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.118Z&quot;
   }
 }</pre>
       </div>

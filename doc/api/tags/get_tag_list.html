@@ -109,8 +109,8 @@ table th, table td {
       <h1>Tags API</h1>
 
       <div class="article">
-        <h2>update tag</h2>
-        <h3>PATCH /api/v1/tags/:id</h3>
+        <h2>get tag list</h2>
+        <h3>GET /api/v1/tags</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -123,18 +123,10 @@ table th, table td {
             <tbody>
               <tr>
                 <td>
-                    <span class="name">name</span>
+                    <span class="name">page</span>
                 </td>
                 <td>
-                  <span class="description">Tag name</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                    <span class="name">sign</span>
-                </td>
-                <td>
-                  <span class="description">Tag sign</span>
+                  <span class="description">Page number</span>
                 </td>
               </tr>
             </tbody>
@@ -196,18 +188,16 @@ table th, table td {
 
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyNjIsImV4cCI6MTcwMzA2NDYzMH0.f7hI7w6IfD9ATOA-uv1zynwRUu-o_p2aGZRsSweipuc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyNjAsImV4cCI6MTcwMzA2NDYzMH0.x-E96KcgcoMIq1ArIebWp4GKVcpmZyTP0vIpOHnC7l4
 Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">PATCH /api/v1/tags/747</pre>
+          <pre class="request route highlight">GET /api/v1/tags</pre>
 
 
-            <h4>Body</h4>
-            <pre class="request body">{"name":"test name","sign":"test sign"}</pre>
 
 
             <h3>Response</h3>
@@ -220,23 +210,111 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;022a618173733324f837f011e4e3d447&quot;
+ETag: W/&quot;3363f6e90f1e1df76d9aa0d3456c01ea&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 3104160a-9e78-443a-8337-25edb6897071
-X-Runtime: 0.010866
-Content-Length: 173</pre>
+X-Request-Id: 6080b876-e240-4905-bcc7-323f95e6d887
+X-Runtime: 0.011253
+Content-Length: 1509</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
-  &quot;resource&quot;: {
-    &quot;name&quot;: &quot;test name&quot;,
-    &quot;sign&quot;: &quot;test sign&quot;,
-    &quot;id&quot;: 747,
-    &quot;user_id&quot;: 262,
-    &quot;deleted_at&quot;: null,
-    &quot;created_at&quot;: &quot;2023-12-20T07:30:30.267Z&quot;,
-    &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.278Z&quot;
+  &quot;resources&quot;: [
+    {
+      &quot;id&quot;: 735,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.181Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.181Z&quot;
+    },
+    {
+      &quot;id&quot;: 736,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.185Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.185Z&quot;
+    },
+    {
+      &quot;id&quot;: 737,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.190Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.190Z&quot;
+    },
+    {
+      &quot;id&quot;: 738,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.193Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.193Z&quot;
+    },
+    {
+      &quot;id&quot;: 739,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.197Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.197Z&quot;
+    },
+    {
+      &quot;id&quot;: 740,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.202Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.202Z&quot;
+    },
+    {
+      &quot;id&quot;: 741,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.206Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.206Z&quot;
+    },
+    {
+      &quot;id&quot;: 742,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.209Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.209Z&quot;
+    },
+    {
+      &quot;id&quot;: 743,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.214Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.214Z&quot;
+    },
+    {
+      &quot;id&quot;: 744,
+      &quot;user_id&quot;: 260,
+      &quot;name&quot;: &quot;x&quot;,
+      &quot;sign&quot;: &quot;x&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;created_at&quot;: &quot;2023-12-20T07:30:30.219Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-20T07:30:30.219Z&quot;
+    }
+  ],
+  &quot;pager&quot;: {
+    &quot;page&quot;: 1,
+    &quot;per_page&quot;: 10,
+    &quot;count&quot;: 11
   }
 }</pre>
       </div>
