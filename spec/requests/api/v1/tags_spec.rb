@@ -23,6 +23,30 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['resources'].size).to eq 1
     end
   end
+  describe "GET /show" do
+    it "get single tag before sign in" do
+      user = User.create email: 'test@qq.com'
+      tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
+      get "/api/v1/tags/#{tag.id}"
+      expect(response).to have_http_status(401)
+    end
+    it "get single tag after sign in" do
+      user = User.create email: 'test@qq.com'
+      tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
+      get "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
+      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(200)
+      json = JSON.parse response.body
+      expect(json['resource']['id']).to eq tag.id
+    end
+    it "get other user's tag" do
+      user = User.create email: 'test@qq.com'
+      other = User.create email: 'test1@qq.com'
+      tag = Tag.create name: 'test', sign: 'sign', user_id: other.id
+      get "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
+      expect(response).to have_http_status(403)
+    end
+  end
   describe "POST /create" do
     it "create tag before sign in" do
       post '/api/v1/tags', params: { name: 'test', sign: 'sign' }
