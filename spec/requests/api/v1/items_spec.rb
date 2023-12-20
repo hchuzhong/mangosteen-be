@@ -4,17 +4,16 @@ RSpec.describe "Items", type: :request do
   describe "get accounts" do
     it "pagination when not sign in" do
       user1 = User.create email: 'test1@qq.com'
-      user2 = User.create email: 'test2@qq.com'
-      11.times { Item.create amount: 100, user_id: user1.id }
-      11.times { Item.create amount: 100, user_id: user2.id }
       get '/api/v1/items'
       expect(response).to have_http_status 401
     end
     it "pagination" do
       user1 = User.create email: 'test1@qq.com'
       user2 = User.create email: 'test2@qq.com'
-      11.times { Item.create amount: 100, user_id: user1.id }
-      11.times { Item.create amount: 100, user_id: user2.id }
+      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
+      tag2 = Tag.create name: 'tag1', user_id: user2.id, sign: 'x'
+      11.times { Item.create amount: 100, happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id }
+      11.times { Item.create amount: 100, happened_at: Time.now, tags_id: [tag2.id], user_id: user2.id }
 
       get '/api/v1/items', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
@@ -27,9 +26,10 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date" do
       user1 = User.create email: 'test1@qq.com'
-      item1 = Item.create amount: 100, created_at: '2018-01-02', user_id: user1.id
-      item2 = Item.create amount: 100, created_at: '2018-01-02', user_id: user1.id
-      item3 = Item.create amount: 100, created_at: '2019-01-01', user_id: user1.id
+      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
+      item2 = Item.create amount: 100, created_at: '2018-01-02', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
+      item3 = Item.create amount: 100, created_at: '2019-01-01', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
       get '/api/v1/items?created_after=2018-01-01&created_before=2018-01-02', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -39,7 +39,8 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date(boundary condition 0)" do
       user1 = User.create email: 'test1@qq.com'
-      item1 = Item.create amount: 100, created_at: '2018-01-01', user_id: user1.id
+      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
       get '/api/v1/items?created_after=2018-01-01&created_before=2018-01-02', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -48,8 +49,9 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date(boundary condition 1)" do
       user1 = User.create email: 'test1@qq.com'
-      item1 = Item.create amount: 100, created_at: '2018-01-01', user_id: user1.id
-      item2 = Item.create amount: 100, created_at: '2017-01-01', user_id: user1.id
+      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
+      item2 = Item.create amount: 100, created_at: '2017-01-01', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
       get '/api/v1/items?created_after=2018-01-01', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -58,8 +60,9 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date(boundary condition 2)" do
       user1 = User.create email: 'test1@qq.com'
-      item1 = Item.create amount: 100, created_at: '2018-01-01', user_id: user1.id
-      item2 = Item.create amount: 100, created_at: '2019-01-01', user_id: user1.id
+      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
+      item2 = Item.create amount: 100, created_at: '2019-01-01', happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id
       get '/api/v1/items?created_before=2018-01-02', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
