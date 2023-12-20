@@ -51,4 +51,39 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['errors']['sign'][0]).to eq "can't be blank"
     end
   end
+  describe "Update /patch" do
+    it "update tag before sign in" do
+      user = User.create email: 'test@qq.com'
+      tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
+      patch "/api/v1/tags/#{tag.id}", params: { name: 'test1', sign: 'sign1' }
+      expect(response).to have_http_status(401)
+    end
+    it "update tag after sign in" do
+      user = User.create email: 'test@qq.com'
+      tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
+      patch "/api/v1/tags/#{tag.id}", params: { name: 'test1', sign: 'sign1' }, headers: user.generate_auth_header
+      expect(response).to have_http_status(200)
+      json = JSON.parse response.body
+      expect(json['resource']['name']).to eq 'test1'
+      expect(json['resource']['sign']).to eq 'sign1'
+    end
+    it "only update tag's sign" do
+      user = User.create email: 'test@qq.com'
+      tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
+      patch "/api/v1/tags/#{tag.id}", params: { sign: 'sign1' }, headers: user.generate_auth_header
+      expect(response).to have_http_status(200)
+      json = JSON.parse response.body
+      expect(json['resource']['name']).to eq 'test'
+      expect(json['resource']['sign']).to eq 'sign1'
+    end
+    it "only update tag's name" do
+      user = User.create email: 'test@qq.com'
+      tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
+      patch "/api/v1/tags/#{tag.id}", params: { name: 'test1' }, headers: user.generate_auth_header
+      expect(response).to have_http_status(200)
+      json = JSON.parse response.body
+      expect(json['resource']['name']).to eq 'test1'
+      expect(json['resource']['sign']).to eq 'sign'
+    end
+  end
 end
