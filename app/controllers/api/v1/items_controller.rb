@@ -13,9 +13,9 @@ class Api::V1::ItemsController < ApplicationController
     def create 
         item = Item.new amount: params[:amount]
         if item.save
-            render json: {resource: item}
+            render json: {resource: item}, status: :ok
         else
-            render json: {errors: item.errors}
+            render json: {errors: item.errors}, status: :unprocessable_entity
         end
     end
 end
