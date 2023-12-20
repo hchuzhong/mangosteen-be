@@ -68,14 +68,20 @@ RSpec.describe "Items", type: :request do
     end
   end
   describe "create" do
-    xit "can create an item" do
+    it "can't create an item when not sign in" do
+      post '/api/v1/items', params: {amount: 99}
+      expect(response).to have_http_status 401
+    end
+    it "can create an item after sign in" do
+      user = User.create email: 'test@qq.com'
       expect {
-        post '/api/v1/items', params: {amount: 99}
+        post '/api/v1/items', params: {amount: 99}, headers: user.generate_auth_header
       }.to change {Item.count}.by +1
       expect(response).to have_http_status 200
       json = JSON.parse response.body
       expect(json['resource']['id']).to be_an(Numeric)
       expect(json['resource']['amount']).to eq 99
+      expect(json['resource']['user_id']).to eq user.id
     end
   end
 end
