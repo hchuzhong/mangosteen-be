@@ -99,4 +99,57 @@ RSpec.describe "Items", type: :request do
       expect(json['errors']['happened_at'][0]).to eq "can't be blank"
     end
   end
+  describe "get summary" do
+    it "group by happened_at" do
+      user = User.create email: 'test@qq.com'
+      tag = Tag.create name: 'test', sign: 'x', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 300, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 400, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 500, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 600, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
+      get '/api/v1/items/summary', params: {
+        happened_after: '2018-11-01',
+        happened_before: '2018-12-01',
+        kind: 'expenses',
+        group_by: 'happened_at'
+      }, headers: user.generate_auth_header
+      expect(response).to have_http_status 200
+      json = JSON.parse response.body
+      expect(json['groups'].size).to eq 3
+      expect(json['groups'][0]['happened_at']).to eq '2018-11-10'
+      expect(json['groups'][0]['amount']).to eq 700
+      expect(json['groups'][1]['happened_at']).to eq '2018-11-11'
+      expect(json['groups'][1]['amount']).to eq 300
+      expect(json['groups'][2]['happened_at']).to eq '2018-11-12'
+      expect(json['groups'][2]['amount']).to eq 1100
+      expect(json['total']).to eq 2100
+    end
+    it "group by tag id" do
+      user = User.create email: 'test@qq.com'
+      tag1 = Tag.create name: 'test1', sign: 'x', user_id: user.id
+      tag2 = Tag.create name: 'test2', sign: 'x', user_id: user.id
+      tag3 = Tag.create name: 'test3', sign: 'x', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tags_id: [tag1.id, tag2.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tags_id: [tag2.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 300, kind: 'expenses', tags_id: [tag1.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      get '/api/v1/items/summary', params: {
+        happened_after: '2018-11-01',
+        happened_before: '2018-12-01',
+        kind: 'expenses',
+        group_by: 'tag_id'
+      }, headers: user.generate_auth_header
+      expect(response).to have_http_status 200
+      json = JSON.parse response.body
+      expect(json['groups'].size).to eq 3
+      expect(json['groups'][0]['tag_id']).to eq tag3.id
+      expect(json['groups'][0]['amount']).to eq 500
+      expect(json['groups'][1]['tag_id']).to eq tag1.id
+      expect(json['groups'][1]['amount']).to eq 400
+      expect(json['groups'][2]['tag_id']).to eq tag2.id
+      expect(json['groups'][2]['amount']).to eq 300
+      expect(json['total']).to eq 600
+    end
+  end
 end
