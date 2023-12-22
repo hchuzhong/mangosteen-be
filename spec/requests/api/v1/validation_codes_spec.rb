@@ -8,5 +8,11 @@ RSpec.describe "ValidationCodes", type: :request do
       post '/api/v1/validation_codes', params: {email: 'test@qq.com'}
       expect(response).to have_http_status(429)
     end
+    it "return 422 with invalid email" do
+      post '/api/v1/validation_codes', params: {email: 'test'}
+      expect(response).to have_http_status(422)
+      json = JSON.parse response.body
+      expect(json['errors']['email'][0]).to eq('is invalid')
+    end
   end
 end
