@@ -17,7 +17,7 @@ resource "Items" do
     let(:created_before) { Time.now + 10.days }
     example "get data in time range" do
       tag = create :tag, user: current_user
-      11.times do Item.create! amount: 100, happened_at: Time.now, tag_ids: [tag.id], user: current_user end
+      create_list :item, 11,  tag_ids: [tag.id], user: current_user
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
@@ -63,12 +63,12 @@ resource "Items" do
     example "get summary information by happened_at" do
       user = current_user
       tag = create :tag, user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 400, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 500, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 600, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
+      create :item, amount: 100, tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      create :item, amount: 200, tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      create :item, amount: 300, tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user: user
+      create :item, amount: 400, tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user: user
+      create :item, amount: 500, tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user: user
+      create :item, amount: 600, tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user: user
       do_request group_by: 'happened_at'
       expect(status).to eq 200
       json = JSON.parse response_body
@@ -86,9 +86,9 @@ resource "Items" do
       tag1 = create :tag, user: user
       tag2 = create :tag, user: user
       tag3 = create :tag, user: user
-      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag1.id, tag2.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag2.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag1.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      create :item, amount: 100, tag_ids: [tag1.id, tag2.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      create :item, amount: 200, tag_ids: [tag2.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      create :item, amount: 300, tag_ids: [tag1.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
       do_request group_by: 'tag_id'
       expect(status).to eq 200
       json = JSON.parse response_body
