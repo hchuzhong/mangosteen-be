@@ -129,6 +129,14 @@ table th, table td {
                   <span class="description">Page number</span>
                 </td>
               </tr>
+              <tr>
+                <td>
+                    <span class="name">kind</span>
+                </td>
+                <td>
+                  <span class="description">Tag kind</span>
+                </td>
+              </tr>
             </tbody>
           </table>
 
@@ -188,7 +196,7 @@ table th, table td {
 
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyODIsImV4cCI6MTcwMzE0MzY0Nn0.NrdIheDoGreeHAvzuTEODpgLgiVqjzEPPquGViVv6Sc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMywiZXhwIjoxNzAzNzUwMjMxfQ.6zDH2etg0yKNa_hupVfRW0sUtojKt3iiKl2pJk0kTf0
 Accept: application/json
 Content-Type: application/json
 Host: example.org
@@ -210,105 +218,115 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;77dc327adfc6d157bb7c83d5dbae4910&quot;
+ETag: W/&quot;a55af3bcf6507a1385dec53c822d1566&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: d3677850-d82d-4441-a281-ac56f3f5d5ef
-X-Runtime: 0.013742
-Content-Length: 1509</pre>
+X-Request-Id: bcfd78e1-b2e2-442a-9dd1-bc394fe6d4ff
+X-Runtime: 0.020000
+Content-Length: 1679</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
   &quot;resources&quot;: [
     {
-      &quot;id&quot;: 326,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 102,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.331Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.331Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.886Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.886Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 327,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 103,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.337Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.337Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.896Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.896Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 328,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 104,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.343Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.343Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.907Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.907Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 329,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 105,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.348Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.348Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.914Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.914Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 330,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 106,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.353Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.353Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.921Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.921Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 331,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 107,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.358Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.358Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.928Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.928Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 332,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 108,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.362Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.362Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.935Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.935Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 333,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 109,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.367Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.367Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.942Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.942Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 334,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 110,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.372Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.372Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.948Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.948Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     },
     {
-      &quot;id&quot;: 335,
-      &quot;user_id&quot;: 282,
+      &quot;id&quot;: 111,
+      &quot;user_id&quot;: 33,
       &quot;name&quot;: &quot;x&quot;,
       &quot;sign&quot;: &quot;x&quot;,
       &quot;deleted_at&quot;: null,
-      &quot;created_at&quot;: &quot;2023-12-21T05:27:26.377Z&quot;,
-      &quot;updated_at&quot;: &quot;2023-12-21T05:27:26.377Z&quot;
+      &quot;created_at&quot;: &quot;2023-12-28T05:57:11.955Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.955Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;
     }
   ],
   &quot;pager&quot;: {

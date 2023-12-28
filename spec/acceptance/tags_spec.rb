@@ -24,6 +24,7 @@ resource "Tags" do
   end
   get "/api/v1/tags" do
     parameter :page, 'Page number'
+    parameter :kind, 'Tag kind', enum: ['expenses', 'income']
     with_options :scope => :resources do
       response_field :id, "ID"
       response_field :name, "Tag name"
