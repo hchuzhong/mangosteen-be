@@ -147,7 +147,7 @@ table th, table td {
               </tr>
               <tr>
                 <td class="required">
-                    <span class="name">tags_id</span>
+                    <span class="name">tag_ids</span>
                 </td>
                 <td>
                   <span class="description">Tags ID List</span>
@@ -199,10 +199,10 @@ table th, table td {
               </tr>
               <tr>
                 <td>
-                    <span class="name">resource[tags_id]</span>
+                    <span class="name">resource[tag_ids]</span>
                 </td>
                 <td>
-                  <span class="description">Resource tags</span>
+                  <span class="description">Resource tag ids</span>
                 </td>
               </tr>
             </tbody>
@@ -212,7 +212,7 @@ table th, table td {
 
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwiZXhwIjoxNzAzNzUwMjMxfQ.cZzBfd0z3f3a5w2IIZz6ndgSMXENeMbEUREs23R5LLY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0OCwiZXhwIjoxNzAzNzU1NjQxfQ.WrqyuX_5jfyr1fspUlnQ31mnAWu_h_VAWjqbAVerabQ
 Accept: application/json
 Content-Type: application/json
 Host: example.org
@@ -223,7 +223,7 @@ Cookie: </pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"amount":100,"kind":"expenses","happened_at":"2023-12-28T13:57:11.570+08:00","tags_id":[95,96]}</pre>
+            <pre class="request body">{"amount":100,"kind":"expenses","happened_at":"2023-12-28T15:27:21.753+08:00","tag_ids":[92,93]}</pre>
 
 
             <h3>Response</h3>
@@ -236,27 +236,27 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;e7edb1936bbe7f1a5485f6789cdca3cb&quot;
+ETag: W/&quot;bc7dc734f9e191a1dc7b7a4e9db728b5&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 5afd5e0f-3f19-49ec-8db9-74f6ea8a9e41
-X-Runtime: 0.019615
+X-Request-Id: eb884b3d-a9ba-4bad-8e13-51513216e25b
+X-Runtime: 0.077695
 Content-Length: 217</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
   &quot;resource&quot;: {
-    &quot;id&quot;: 12,
-    &quot;user_id&quot;: 28,
+    &quot;id&quot;: 73,
+    &quot;user_id&quot;: 48,
     &quot;amount&quot;: 100,
     &quot;note&quot;: null,
-    &quot;tags_id&quot;: [
-      95,
-      96
+    &quot;tag_ids&quot;: [
+      92,
+      93
     ],
-    &quot;happened_at&quot;: &quot;2023-12-28T05:57:11.570Z&quot;,
-    &quot;created_at&quot;: &quot;2023-12-28T05:57:11.609Z&quot;,
-    &quot;updated_at&quot;: &quot;2023-12-28T05:57:11.609Z&quot;,
+    &quot;happened_at&quot;: &quot;2023-12-28T07:27:21.753Z&quot;,
+    &quot;created_at&quot;: &quot;2023-12-28T07:27:21.833Z&quot;,
+    &quot;updated_at&quot;: &quot;2023-12-28T07:27:21.833Z&quot;,
     &quot;kind&quot;: &quot;expenses&quot;
   }
 }</pre>

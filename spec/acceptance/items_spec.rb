@@ -17,7 +17,7 @@ resource "Items" do
     let(:created_before) { Time.now + 10.days }
     example "get data in time range" do
       tag = Tag.create name: 'test', user_id: current_user.id, sign: 'test'
-      11.times do Item.create! amount: 100, happened_at: Time.now, tags_id: [tag.id], user_id: current_user.id end
+      11.times do Item.create! amount: 100, happened_at: Time.now, tag_ids: [tag.id], user_id: current_user.id end
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
@@ -29,19 +29,19 @@ resource "Items" do
     parameter :amount, "Amount", required: true
     parameter :kind, "Kind", required: true, enum: ['expenses', 'income']
     parameter :happened_at, "Happened At", required: true
-    parameter :tags_id, "Tags ID List", required: true
+    parameter :tag_ids, "Tags ID List", required: true
     with_options :scope => :resource do
       response_field :id
       response_field :amount
       response_field :kind
       response_field :happened_at
-      response_field :tags_id
+      response_field :tag_ids
     end
     let(:amount) { 100 }
     let(:kind) { 'expenses' }
     let(:happened_at) { Time.now }
     let(:tags) {(0..1).map{ Tag.create name: 'test', user_id: current_user.id, sign: 'x' }}
-    let(:tags_id) { tags.map(&:id) }
+    let(:tag_ids) { tags.map(&:id) }
     example "create item" do
       do_request
       expect(status).to eq 200
@@ -63,12 +63,12 @@ resource "Items" do
     example "get summary information by happened_at" do
       user = current_user
       tag = Tag.create! name: 'test', sign: 'x', user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 300, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 400, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 500, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 600, kind: 'expenses', tags_id: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 400, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 500, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 600, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
       do_request group_by: 'happened_at'
       expect(status).to eq 200
       json = JSON.parse response_body
@@ -86,9 +86,9 @@ resource "Items" do
       tag1 = Tag.create name: 'test1', sign: 'x', user_id: user.id
       tag2 = Tag.create name: 'test2', sign: 'x', user_id: user.id
       tag3 = Tag.create name: 'test3', sign: 'x', user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tags_id: [tag1.id, tag2.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tags_id: [tag2.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 300, kind: 'expenses', tags_id: [tag1.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag1.id, tag2.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag2.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag1.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
       do_request group_by: 'tag_id'
       expect(status).to eq 200
       json = JSON.parse response_body
