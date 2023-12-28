@@ -3,7 +3,7 @@ require 'rspec_api_documentation/dsl'
 
 resource "Tags" do
   authentication :basic, :auth
-  let(:current_user) { User.create email: 'test1@qq.com' }
+  let(:current_user) { create :user }
   let(:auth) { "Bearer #{current_user.generate_jwt}"}
   get "/api/v1/tags/:id" do
     let (:tag) { Tag.create name: 'Tag name', sign: 'Tag sign', user_id: current_user.id }

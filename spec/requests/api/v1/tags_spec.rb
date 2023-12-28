@@ -7,8 +7,8 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(response).to have_http_status(401)
     end
     it "get tags after sign in" do
-      user = User.create email: 'test@qq.com'
-      another_user = User.create email: 'test1@qq.com'
+      user = create :user
+      another_user = create :user
       11.times do |i| create :tag, name: "tag#{i}", user_id: user.id end
       11.times do |i| create :tag, name: "tag#{i}", user_id: another_user.id end
 
@@ -23,7 +23,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['resources'].size).to eq 1
     end
     it "get tags by kind" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       11.times do |i| Tag.create name: "tag#{i}", user_id: user.id, sign: 'x', kind: 'expenses' end
       11.times do |i| Tag.create name: "tag#{i}", user_id: user.id, sign: 'x', kind: 'income' end
       
@@ -40,13 +40,13 @@ RSpec.describe "Api::V1::Tags", type: :request do
   end
   describe "GET /show" do
     it "get single tag before sign in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       get "/api/v1/tags/#{tag.id}"
       expect(response).to have_http_status(401)
     end
     it "get single tag after sign in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       get "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
       expect(response).to have_http_status(200)
@@ -55,8 +55,8 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['resource']['id']).to eq tag.id
     end
     it "get other user's tag" do
-      user = User.create email: 'test@qq.com'
-      other = User.create email: 'test1@qq.com'
+      user = create :user
+      other = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: other.id
       get "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
       expect(response).to have_http_status(403)
@@ -68,7 +68,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(response).to have_http_status(401)
     end
     it "create tag after sign in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       post '/api/v1/tags', params: { name: 'test', sign: 'sign' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
@@ -76,14 +76,14 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['resource']['sign']).to eq 'sign'
     end
     it "create tag after sign in failed, because the name was not filled in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       post '/api/v1/tags', params: { sign: 'x' }, headers: user.generate_auth_header
       expect(response).to have_http_status(422)
       json = JSON.parse response.body
       expect(json['errors']['name'][0]).to eq "can't be blank"
     end
     it "create tag after sign in failed, because the sign was not filled in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       post '/api/v1/tags', params: { name: 'x' }, headers: user.generate_auth_header
       expect(response).to have_http_status(422)
       json = JSON.parse response.body
@@ -92,13 +92,13 @@ RSpec.describe "Api::V1::Tags", type: :request do
   end
   describe "Update /patch" do
     it "update tag before sign in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       patch "/api/v1/tags/#{tag.id}", params: { name: 'test1', sign: 'sign1' }
       expect(response).to have_http_status(401)
     end
     it "update tag after sign in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       patch "/api/v1/tags/#{tag.id}", params: { name: 'test1', sign: 'sign1' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
@@ -107,7 +107,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['resource']['sign']).to eq 'sign1'
     end
     it "only update tag's sign" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       patch "/api/v1/tags/#{tag.id}", params: { sign: 'sign1' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
@@ -116,7 +116,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['resource']['sign']).to eq 'sign1'
     end
     it "only update tag's name" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       patch "/api/v1/tags/#{tag.id}", params: { name: 'test1' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
@@ -125,8 +125,8 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['resource']['sign']).to eq 'sign'
     end
     it "update other user's tag" do
-      user = User.create email: 'test@qq.com'
-      other = User.create email: 'other@qq.com'
+      user = create :user
+      other = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: other.id
       patch "/api/v1/tags/#{tag.id}", params: { name: 'test1' }, headers: user.generate_auth_header
       expect(response).to have_http_status(403)
@@ -134,13 +134,13 @@ RSpec.describe "Api::V1::Tags", type: :request do
   end
   describe "Destroy /delete" do
     it "delete tag before sign in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       delete "/api/v1/tags/#{tag.id}"
       expect(response).to have_http_status(401)
     end
     it "delete tag after sign in" do
-      user = User.create email: 'test@qq.com'
+      user = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: user.id
       delete "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
       expect(response).to have_http_status(200)
@@ -148,8 +148,8 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(tag.deleted_at).not_to eq nil
     end
     it "delete other user's tag" do
-      user = User.create email: 'test@qq.com'
-      other = User.create email: 'other@qq.com'
+      user = create :user
+      other = create :user
       tag = Tag.create name: 'test', sign: 'sign', user_id: other.id
       delete "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
       expect(response).to have_http_status(403)
