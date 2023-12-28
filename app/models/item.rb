@@ -4,6 +4,7 @@ class Item < ApplicationRecord
     validates :kind, presence: true
     validates :tags_id, presence: true
     validates :happened_at, presence: true
+    belongs_to :user
 
     validate :check_tag_id_belong_to_user
 

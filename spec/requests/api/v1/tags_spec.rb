@@ -9,8 +9,8 @@ RSpec.describe "Api::V1::Tags", type: :request do
     it "get tags after sign in" do
       user = User.create email: 'test@qq.com'
       another_user = User.create email: 'test1@qq.com'
-      11.times do |i| Tag.create name: "tag#{i}", user_id: user.id, sign: 'x' end
-      11.times do |i| Tag.create name: "tag#{i}", user_id: another_user.id, sign: 'x' end
+      11.times do |i| create :tag, name: "tag#{i}", user_id: user.id end
+      11.times do |i| create :tag, name: "tag#{i}", user_id: another_user.id end
 
       get '/api/v1/tags', headers: user.generate_auth_header
       expect(response).to have_http_status(200)

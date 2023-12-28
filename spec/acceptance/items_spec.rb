@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'rspec_api_documentation/dsl'
 
 resource "Items" do
-  let(:current_user) { User.create email: 'test1@qq.com' }
+  let(:current_user) { create :user }
   let(:auth) { "Bearer #{current_user.generate_jwt}"}
   get "/api/v1/items" do
     authentication :basic, :auth

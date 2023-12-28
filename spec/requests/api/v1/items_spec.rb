@@ -10,10 +10,12 @@ RSpec.describe "Items", type: :request do
     it "pagination" do
       user1 = User.create email: 'test1@qq.com'
       user2 = User.create email: 'test2@qq.com'
-      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
-      tag2 = Tag.create name: 'tag1', user_id: user2.id, sign: 'x'
-      11.times { Item.create amount: 100, happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id }
-      11.times { Item.create amount: 100, happened_at: Time.now, tags_id: [tag2.id], user_id: user2.id }
+      create_list :item, 11, amount: 100, user: user1, tags_id: [create(:tag, user: user1).id]
+      create_list :item, 11, amount: 100, user: user2, tags_id: [create(:tag, user: user2).id]
+      # tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
+      # tag2 = Tag.create name: 'tag1', user_id: user2.id, sign: 'x'
+      # 11.times { Item.create amount: 100, happened_at: Time.now, tags_id: [tag1.id], user_id: user1.id }
+      # 11.times { Item.create amount: 100, happened_at: Time.now, tags_id: [tag2.id], user_id: user2.id }
 
       get '/api/v1/items', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
