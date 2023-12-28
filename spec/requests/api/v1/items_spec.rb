@@ -12,10 +12,6 @@ RSpec.describe "Items", type: :request do
       user2 = create :user
       create_list :item, 11, amount: 100, user: user1, tag_ids: [create(:tag, user: user1).id]
       create_list :item, 11, amount: 100, user: user2, tag_ids: [create(:tag, user: user2).id]
-      # tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
-      # tag2 = Tag.create name: 'tag1', user_id: user2.id, sign: 'x'
-      # 11.times { Item.create amount: 100, happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id }
-      # 11.times { Item.create amount: 100, happened_at: Time.now, tag_ids: [tag2.id], user_id: user2.id }
 
       get '/api/v1/items', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
@@ -28,10 +24,10 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date" do
       user1 = create :user
-      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
-      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
-      item2 = Item.create amount: 100, created_at: '2018-01-02', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
-      item3 = Item.create amount: 100, created_at: '2019-01-01', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
+      tag1 = create :tag, user: user1
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user: user1
+      item2 = Item.create amount: 100, created_at: '2018-01-02', happened_at: Time.now, tag_ids: [tag1.id], user: user1
+      item3 = Item.create amount: 100, created_at: '2019-01-01', happened_at: Time.now, tag_ids: [tag1.id], user: user1
       get '/api/v1/items?created_after=2018-01-01&created_before=2018-01-02', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -41,8 +37,8 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date(boundary condition 0)" do
       user1 = create :user
-      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
-      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
+      tag1 = create :tag, user: user1
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user: user1
       get '/api/v1/items?created_after=2018-01-01&created_before=2018-01-02', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -51,9 +47,9 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date(boundary condition 1)" do
       user1 = create :user
-      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
-      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
-      item2 = Item.create amount: 100, created_at: '2017-01-01', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
+      tag1 = create :tag, user: user1
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user: user1
+      item2 = Item.create amount: 100, created_at: '2017-01-01', happened_at: Time.now, tag_ids: [tag1.id], user: user1
       get '/api/v1/items?created_after=2018-01-01', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -62,9 +58,9 @@ RSpec.describe "Items", type: :request do
     end
     it "filter by date(boundary condition 2)" do
       user1 = create :user
-      tag1 = Tag.create name: 'tag1', user_id: user1.id, sign: 'x'
-      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
-      item2 = Item.create amount: 100, created_at: '2019-01-01', happened_at: Time.now, tag_ids: [tag1.id], user_id: user1.id
+      tag1 = create :tag, user: user1
+      item1 = Item.create amount: 100, created_at: '2018-01-01', happened_at: Time.now, tag_ids: [tag1.id], user: user1
+      item2 = Item.create amount: 100, created_at: '2019-01-01', happened_at: Time.now, tag_ids: [tag1.id], user: user1
       get '/api/v1/items?created_before=2018-01-02', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -79,8 +75,8 @@ RSpec.describe "Items", type: :request do
     end
     it "can create an item after sign in" do
       user = create :user
-      tag1 = Tag.create name: 'test1', sign: 'x', user_id: user.id
-      tag2 = Tag.create name: 'test2', sign: 'x', user_id: user.id
+      tag1 = create :tag, user: user
+      tag2 = create :tag, user: user
       expect {
         post '/api/v1/items', params: {amount: 99, tag_ids: [tag1.id, tag2.id], happened_at: '2018-01-01T00:00:00.000+08:00'}, headers: user.generate_auth_header
       }.to change {Item.count}.by +1
@@ -104,13 +100,13 @@ RSpec.describe "Items", type: :request do
   describe "get summary" do
     it "group by happened_at" do
       user = create :user
-      tag = Tag.create name: 'test', sign: 'x', user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 400, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 500, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 600, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user_id: user.id
+      tag = create :tag, user: user
+      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user: user
+      Item.create! amount: 400, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-10T00:00:00.000+08:00', user: user
+      Item.create! amount: 500, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user: user
+      Item.create! amount: 600, kind: 'expenses', tag_ids: [tag.id], happened_at: '2018-11-12T00:00:00.000+08:00', user: user
       get '/api/v1/items/summary', params: {
         happened_after: '2018-11-01',
         happened_before: '2018-12-01',
@@ -130,12 +126,12 @@ RSpec.describe "Items", type: :request do
     end
     it "group by tag id" do
       user = create :user
-      tag1 = Tag.create name: 'test1', sign: 'x', user_id: user.id
-      tag2 = Tag.create name: 'test2', sign: 'x', user_id: user.id
-      tag3 = Tag.create name: 'test3', sign: 'x', user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag1.id, tag2.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag2.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
-      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag1.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user_id: user.id
+      tag1 = create :tag, user: user
+      tag2 = create :tag, user: user
+      tag3 = create :tag, user: user
+      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag1.id, tag2.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag2.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
+      Item.create! amount: 300, kind: 'expenses', tag_ids: [tag1.id, tag3.id], happened_at: '2018-11-11T00:00:00.000+08:00', user: user
       get '/api/v1/items/summary', params: {
         happened_after: '2018-11-01',
         happened_before: '2018-12-01',

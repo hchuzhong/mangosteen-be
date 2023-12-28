@@ -6,7 +6,7 @@ resource "Tags" do
   let(:current_user) { create :user }
   let(:auth) { "Bearer #{current_user.generate_jwt}"}
   get "/api/v1/tags/:id" do
-    let (:tag) { Tag.create name: 'Tag name', sign: 'Tag sign', user_id: current_user.id }
+    let (:tag) { create :tag, user: current_user }
     let (:id) { tag.id }
     with_options :scope => :resources do
       response_field :id, "ID"
@@ -33,7 +33,7 @@ resource "Tags" do
       response_field :deleted_at, "Deleted time"
     end
     example "get tag list" do
-      11.times do Tag.create name: 'x', sign: 'x', user_id: current_user.id end
+      create_list :tag, 11, user: current_user
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
@@ -61,7 +61,7 @@ resource "Tags" do
     end
   end
   patch "/api/v1/tags/:id" do
-    let (:tag) { Tag.create name: 'Tag name', sign: 'Tag sign', user_id: current_user.id }
+    let (:tag) { create :tag, user: current_user }
     let (:id) { tag.id }
     parameter :name, 'Tag name'
     parameter :sign, 'Tag sign'
@@ -83,7 +83,7 @@ resource "Tags" do
     end
   end
   delete "/api/v1/tags/:id" do
-    let (:tag) { Tag.create name: 'Tag name', sign: 'Tag sign', user_id: current_user.id }
+    let (:tag) { create :tag, user: current_user }
     let (:id) { tag.id }
     example "delete tag" do
       do_request
