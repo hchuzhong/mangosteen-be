@@ -9,13 +9,13 @@ RSpec.describe "Items", type: :request do
     end
     it "pagination" do
       user1 = create :user
-      create_list :item, 11, user: user1
-      create_list :item, 11
+      create_list :item, Item.default_per_page + 1, user: user1
+      create_list :item, Item.default_per_page + 1
 
       get '/api/v1/items', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
-      expect(json['resources'].size).to eq 10
+      expect(json['resources'].size).to eq Item.default_per_page
       get '/api/v1/items?page=2', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
@@ -89,6 +89,22 @@ RSpec.describe "Items", type: :request do
       expect(json['errors']['amount'][0]).to eq "can't be blank"
       expect(json['errors']['tag_ids'][0]).to eq "can't be blank"
       expect(json['errors']['happened_at'][0]).to eq "can't be blank"
+    end
+  end
+  describe "get balance" do
+    it "can get balance" do
+      user = create :user
+      create :item, amount: 100, happened_at: '2018-11-11T00:10:00.000+08:00', user: user, kind: 'expenses'
+      create :item, amount: 200, happened_at: '2018-11-11T00:12:00.000+08:00', user: user, kind: 'expenses'
+      create :item, amount: 300, happened_at: '2018-11-11T00:10:00.000+08:00', user: user, kind: 'income'
+      create :item, amount: 400, happened_at: '2018-11-11T00:12:00.000+08:00', user: user, kind: 'income'
+
+      get '/api/v1/items/balance?happened_after=2018-11-01&happened_before=2018-12-01', headers: user.generate_auth_header
+      expect(response).to have_http_status 200
+      json = JSON.parse response.body
+      expect(json['income']).to eq 700
+      expect(json['expenses']).to eq 300
+      expect(json['balance']).to eq 400
     end
   end
   describe "get summary" do

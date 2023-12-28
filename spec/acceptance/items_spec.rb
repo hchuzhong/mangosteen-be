@@ -17,11 +17,11 @@ resource "Items" do
     let(:happened_before) { Time.now + 10.days }
     example "get data in time range" do
       tag = create :tag, user: current_user
-      create_list :item, 11,  tag_ids: [tag.id], user: current_user
+      create_list :item, Item.default_per_page + 1,  tag_ids: [tag.id], user: current_user
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
-      expect(json['resources'].size).to eq 10
+      expect(json['resources'].size).to eq Item.default_per_page
     end
   end
   post "/api/v1/items" do
