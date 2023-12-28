@@ -33,11 +33,11 @@ resource "Tags" do
       response_field :deleted_at, "Deleted time"
     end
     example "get tag list" do
-      create_list :tag, 11, user: current_user
+      create_list :tag, Tag.default_per_page + 1, user: current_user
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
-      expect(json['resources'].size).to eq 10
+      expect(json['resources'].size).to eq Tag.default_per_page
     end
   end
   post "/api/v1/tags" do
