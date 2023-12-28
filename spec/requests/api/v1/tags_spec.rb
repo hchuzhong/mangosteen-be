@@ -112,6 +112,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       patch "/api/v1/tags/#{tag.id}", params: { sign: 'sign1' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
+      expect(json['resource']['name']).to eq tag.name
       expect(json['resource']['sign']).to eq 'sign1'
     end
     it "only update tag's name" do
@@ -121,6 +122,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
       expect(json['resource']['name']).to eq 'test1'
+      expect(json['resource']['sign']).to eq  tag.sign
     end
     it "update other user's tag" do
       user = create :user

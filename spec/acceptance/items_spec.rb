@@ -7,14 +7,14 @@ resource "Items" do
   get "/api/v1/items" do
     authentication :basic, :auth
     parameter :page, 'Page number'
-    parameter :created_after, 'Created after(Filter Condition)'
-    parameter :created_before, 'Created before(Filter Condition)'
+    parameter :happened_after, 'Created after(Filter Condition)'
+    parameter :happened_before, 'Created before(Filter Condition)'
     with_options :scope => :resources do
       response_field :id, "ID"
       response_field :amount, "Amount"
     end
-    let(:created_after) { Time.now - 10.days }
-    let(:created_before) { Time.now + 10.days }
+    let(:happened_after) { Time.now - 10.days }
+    let(:happened_before) { Time.now + 10.days }
     example "get data in time range" do
       tag = create :tag, user: current_user
       create_list :item, 11,  tag_ids: [tag.id], user: current_user
