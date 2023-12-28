@@ -91,6 +91,22 @@ RSpec.describe "Items", type: :request do
       expect(json['errors']['happened_at'][0]).to eq "can't be blank"
     end
   end
+  describe "get balance" do
+    it "can get balance" do
+      user = create :user
+      create :item, amount: 100, happened_at: '2018-11-11T00:10:00.000+08:00', user: user, kind: 'expenses'
+      create :item, amount: 200, happened_at: '2018-11-11T00:12:00.000+08:00', user: user, kind: 'expenses'
+      create :item, amount: 300, happened_at: '2018-11-11T00:10:00.000+08:00', user: user, kind: 'income'
+      create :item, amount: 400, happened_at: '2018-11-11T00:12:00.000+08:00', user: user, kind: 'income'
+
+      get '/api/v1/items/balance?happened_after=2018-11-01&happened_before=2018-12-01', headers: user.generate_auth_header
+      expect(response).to have_http_status 200
+      json = JSON.parse response.body
+      expect(json['income']).to eq 700
+      expect(json['expenses']).to eq 300
+      expect(json['balance']).to eq 400
+    end
+  end
   describe "get summary" do
     it "group by happened_at" do
       user = create :user
