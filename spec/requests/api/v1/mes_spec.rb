@@ -16,7 +16,7 @@ RSpec.describe "Me", type: :request do
     end
     it "jwt expired" do
       travel_to Time.now - 3.hours
-      user1 = User.create email: 'test@qq.com'
+      user1 = create :user
       jwt = user1.generate_jwt
       
       travel_back
@@ -25,7 +25,7 @@ RSpec.describe "Me", type: :request do
     end
     it "jwt not expired" do
       travel_to Time.now - 1.hours
-      user1 = User.create email: 'test@qq.com'
+      user1 = create :user
       jwt = user1.generate_jwt
       
       travel_back

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Sessions", type: :request do
   describe "session" do
     it "sign in(create session)" do
-      User.create email: 'test@qq.com'
+      create :user
       post '/api/v1/session', params: {email: 'test@qq.com', code: '123456'}
       expect(response).to have_http_status(200)
       json = JSON.parse response.body

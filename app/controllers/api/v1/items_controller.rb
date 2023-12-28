@@ -3,7 +3,7 @@ class Api::V1::ItemsController < ApplicationController
         current_user_id = request.env['current_user_id']
         return head :unauthorized if current_user_id.nil?
         items = Item.where({user_id: current_user_id})
-            .where({created_at: params[:created_after]..params[:created_before]}).page(params[:page])
+            .where({happened_at: params[:happened_after]..params[:happened_before]}).page(params[:page])
         render json: {resources: items, pager: {
             page: params[:page] || 1,
             per_page: Item.default_per_page,
@@ -11,7 +11,7 @@ class Api::V1::ItemsController < ApplicationController
         }}
     end
     def create 
-        item = Item.new params.permit(:amount, :happened_at, tags_id: [])
+        item = Item.new params.permit(:amount, :happened_at, tag_ids: [])
         item.user_id = request.env['current_user_id']
         if item.save
             render json: {resource: item}, status: :ok
@@ -31,7 +31,7 @@ class Api::V1::ItemsController < ApplicationController
                 hash[key] ||= 0
                 hash[key] += item.amount
             else
-                item.tags_id.each do |tag_id|
+                item.tag_ids.each do |tag_id|
                     key = tag_id
                     hash[key] ||= 0
                     hash[key] += item.amount

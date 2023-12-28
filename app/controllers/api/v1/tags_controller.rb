@@ -2,8 +2,9 @@ class Api::V1::TagsController < ApplicationController
     def index
         current_user = User.find request.env['current_user_id']
         return render status: :unauthorized if current_user.nil?
-        tag = Tag.where(user_id: current_user).page(params[:page])
-        render json: { resources: tag, pager: {
+        tags = Tag.where(user_id: current_user).page(params[:page])
+        tags = tags.where(kind: params[:kind]) if params[:kind]
+        render json: { resources: tags, pager: {
             page: params[:page] || 1,
             per_page: Tag.default_per_page,
             count: Tag.count
