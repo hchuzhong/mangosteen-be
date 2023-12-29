@@ -50,7 +50,7 @@ resource "Tags" do
       response_field :user_id, "User ID"
       response_field :deleted_at, "Deleted time"
     end
-    let (:name) { 'test name' }
+    let (:name) { 'name' }
     let (:sign) { 'test sign' }
     example "create tag" do
       do_request
@@ -72,7 +72,7 @@ resource "Tags" do
       response_field :user_id, "User ID"
       response_field :deleted_at, "Deleted time"
     end
-    let (:name) { 'test name' }
+    let (:name) { 'name' }
     let (:sign) { 'test sign' }
     example "update tag" do
       do_request
