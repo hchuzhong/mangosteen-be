@@ -2,8 +2,10 @@ class Api::V1::ItemsController < ApplicationController
     def index
         current_user_id = request.env['current_user_id']
         return head :unauthorized if current_user_id.nil?
-        items = Item.where({user_id: current_user_id})
-            .where({happened_at: params[:happened_after]..params[:happened_before]}).page(params[:page])
+        items = Item.where(user_id: current_user_id)
+            .where(happened_at: params[:happened_after]..params[:happened_before])
+            .page(params[:page])
+        items = items.where(kind: params[:kind]) if params[:kind]
         render json: {resources: items, pager: {
             page: params[:page] || 1,
             per_page: params[:per_page] || Item.default_per_page,

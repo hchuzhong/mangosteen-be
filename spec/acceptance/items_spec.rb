@@ -9,15 +9,26 @@ resource "Items" do
     parameter :page, 'Page number'
     parameter :happened_after, 'Created after(Filter Condition)'
     parameter :happened_before, 'Created before(Filter Condition)'
+    parameter :kind, 'Items kind(Filter Condition)'
     with_options :scope => :resources do
       response_field :id, "ID"
       response_field :amount, "Amount"
     end
     let(:happened_after) { Time.now - 10.days }
     let(:happened_before) { Time.now + 10.days }
+    let(:kind) { 'expenses' }
     example "get data in time range" do
       tag = create :tag, user: current_user
-      itemList = create_list :item, Item.default_per_page + 1,  tag_ids: [tag.id], user: current_user, happened_at: Time.now
+      create_list :item, Item.default_per_page + 1, tag_ids: [tag.id], user: current_user, happened_at: Time.now
+      do_request
+      expect(status).to eq 200
+      json = JSON.parse response_body
+      expect(json['resources'].size).to eq Item.default_per_page
+    end
+    example "get data which kind is expenses" do
+      tag = create :tag, user: current_user
+      create_list :item, Item.default_per_page + 1, tag_ids: [tag.id], user: current_user, happened_at: Time.now, kind: 'income'
+      create_list :item, Item.default_per_page + 1, tag_ids: [tag.id], user: current_user, happened_at: Time.now, kind: 'expenses'
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
