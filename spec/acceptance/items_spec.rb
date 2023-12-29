@@ -17,7 +17,7 @@ resource "Items" do
     let(:happened_before) { Time.now + 10.days }
     example "get data in time range" do
       tag = create :tag, user: current_user
-      create_list :item, Item.default_per_page + 1,  tag_ids: [tag.id], user: current_user
+      itemList = create_list :item, Item.default_per_page + 1,  tag_ids: [tag.id], user: current_user, happened_at: Time.now
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
