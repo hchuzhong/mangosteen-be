@@ -69,7 +69,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
     end
     it "create tag after sign in" do
       user = create :user
-      post '/api/v1/tags', params: { name: 'test', sign: 'sign' }, headers: user.generate_auth_header
+      post '/api/v1/tags', params: { name: 'test', sign: 'sign', kind: 'expenses' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
       expect(json['resource']['name']).to eq 'test'
@@ -77,33 +77,40 @@ RSpec.describe "Api::V1::Tags", type: :request do
     end
     it "create tag after sign in failed, because the name was not filled in" do
       user = create :user
-      post '/api/v1/tags', params: { sign: 'x' }, headers: user.generate_auth_header
+      post '/api/v1/tags', params: { sign: 'x', kind: 'expenses' }, headers: user.generate_auth_header
       expect(response).to have_http_status(422)
       json = JSON.parse response.body
       expect(json['errors']['name'][0]).to eq "can't be blank"
     end
     it "create tag after sign in failed, because the sign was not filled in" do
       user = create :user
-      post '/api/v1/tags', params: { name: 'x' }, headers: user.generate_auth_header
+      post '/api/v1/tags', params: { name: 'x', kind: 'expenses' }, headers: user.generate_auth_header
       expect(response).to have_http_status(422)
       json = JSON.parse response.body
       expect(json['errors']['sign'][0]).to eq "can't be blank"
+    end
+    it "create tag after sign in failed, because the kind was not filled in" do
+      user = create :user
+      post '/api/v1/tags', params: { name: 'x', sign: 'x' }, headers: user.generate_auth_header
+      expect(response).to have_http_status(422)
+      json = JSON.parse response.body
+      expect(json['errors']['kind'][0]).to eq "can't be blank"
     end
   end
   describe "Update /patch" do
     it "update tag before sign in" do
       user = create :user
       tag = create :tag, user: user
-      patch "/api/v1/tags/#{tag.id}", params: { name: 'test1', sign: 'sign1' }
+      patch "/api/v1/tags/#{tag.id}", params: { name: 't1', sign: 'sign1' }
       expect(response).to have_http_status(401)
     end
     it "update tag after sign in" do
       user = create :user
       tag = create :tag, user: user
-      patch "/api/v1/tags/#{tag.id}", params: { name: 'test1', sign: 'sign1' }, headers: user.generate_auth_header
+      patch "/api/v1/tags/#{tag.id}", params: { name: 't1', sign: 'sign1' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
-      expect(json['resource']['name']).to eq 'test1'
+      expect(json['resource']['name']).to eq 't1'
       expect(json['resource']['sign']).to eq 'sign1'
     end
     it "only update tag's sign" do
@@ -118,10 +125,10 @@ RSpec.describe "Api::V1::Tags", type: :request do
     it "only update tag's name" do
       user = create :user
       tag = create :tag, user: user
-      patch "/api/v1/tags/#{tag.id}", params: { name: 'test1' }, headers: user.generate_auth_header
+      patch "/api/v1/tags/#{tag.id}", params: { name: 't1' }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
-      expect(json['resource']['name']).to eq 'test1'
+      expect(json['resource']['name']).to eq 't1'
       expect(json['resource']['sign']).to eq  tag.sign
     end
     it "update other user's tag" do

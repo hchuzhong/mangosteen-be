@@ -21,6 +21,16 @@ RSpec.describe "Items", type: :request do
       json = JSON.parse(response.body)
       expect(json['resources'].size).to eq 1
     end
+    it "filter by kind" do
+      user1 = create :user
+      item1 = create :item, user: user1, kind: "income"
+      item2 = create :item, user: user1, kind: "expenses"
+      get '/api/v1/items?kind=income', headers: user1.generate_auth_header
+      expect(response).to have_http_status 200
+      json = JSON.parse(response.body)
+      expect(json['resources'].size).to eq 1
+      expect(json['resources'][0]['id']).to eq item1.id
+    end
     it "filter by date" do
       user1 = create :user
       item1 = create :item, happened_at: '2018-01-01', user: user1
@@ -72,7 +82,7 @@ RSpec.describe "Items", type: :request do
       tag1 = create :tag, user: user
       tag2 = create :tag, user: user
       expect {
-        post '/api/v1/items', params: {amount: 99, tag_ids: [tag1.id, tag2.id], happened_at: '2018-01-01T00:00:00.000+08:00'}, headers: user.generate_auth_header
+        post '/api/v1/items', params: {amount: 99, tag_ids: [tag1.id, tag2.id], happened_at: '2018-01-01T00:00:00.000+08:00', kind: 'expenses'}, headers: user.generate_auth_header
       }.to change {Item.count}.by +1
       expect(response).to have_http_status 200
       json = JSON.parse response.body
