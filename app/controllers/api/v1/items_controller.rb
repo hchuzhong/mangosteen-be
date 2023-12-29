@@ -6,7 +6,7 @@ class Api::V1::ItemsController < ApplicationController
             .where({happened_at: params[:happened_after]..params[:happened_before]}).page(params[:page])
         render json: {resources: items, pager: {
             page: params[:page] || 1,
-            per_page: Item.default_per_page,
+            per_page: params[:per_page] || Item.default_per_page,
             count: Item.count
         }}
     end
