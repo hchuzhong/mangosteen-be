@@ -43,6 +43,7 @@ resource "Tags" do
   post "/api/v1/tags" do
     parameter :name, 'Tag name', required: true
     parameter :sign, 'Tag sign', required: true
+    parameter :kind, 'Tag kind', required: true, enum: ['expenses', 'income']
     with_options :scope => :resources do
       response_field :id, "ID"
       response_field :name, "Tag name"
@@ -52,6 +53,7 @@ resource "Tags" do
     end
     let (:name) { 'name' }
     let (:sign) { 'test sign' }
+    let (:kind) { 'expenses' }
     example "create tag" do
       do_request
       expect(status).to eq 200

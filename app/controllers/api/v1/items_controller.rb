@@ -13,7 +13,7 @@ class Api::V1::ItemsController < ApplicationController
         }}
     end
     def create 
-        item = Item.new params.permit(:amount, :happened_at, tag_ids: [])
+        item = Item.new params.permit(:amount, :happened_at, :kind, tag_ids: [])
         item.user_id = request.env['current_user_id']
         if item.save
             render json: {resource: item}, status: :ok
