@@ -87,6 +87,8 @@ resource "Tags" do
   delete "/api/v1/tags/:id" do
     let (:tag) { create :tag, user: current_user }
     let (:id) { tag.id }
+    let (:with_items) { 'true' }
+    parameter :with_items, 'delete items or not', enum: ['true', 'false']
     example "delete tag" do
       do_request
       expect(status).to eq 200
