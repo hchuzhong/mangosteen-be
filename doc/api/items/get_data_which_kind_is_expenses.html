@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Items API</title>
+    <meta charset="utf-8">
+    <style>
+      
+body {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  color: #404040;
+}
+
+.container {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  zoom: 1;
+}
+
+pre {
+  background-color: #f5f5f5;
+  display: block;
+  padding: 8.5px;
+  margin: 0 0 18px;
+  line-height: 18px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+td.required .name:after {
+  float: right;
+  content: "required";
+  font-weight: normal;
+  color: #F08080;
+}
+
+a{
+  color: #0069d6;
+  text-decoration: none;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  color: #404040;
+}
+
+h1 {
+  margin-bottom: 18px;
+  font-size: 30px;
+  line-height: 36px;
+}
+h2 {
+  font-size: 24px;
+  line-height: 36px;
+}
+h3{
+  font-size: 18px;
+  line-height: 36px;
+}
+h4 {
+  font-size: 16px;
+  line-height: 36px;
+}
+
+table{
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 0;
+  border-collapse: separate;
+  font-size: 13px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+}
+
+table th {
+  padding-top: 9px;
+  font-weight: bold;
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+}
+table th+th, table td+td {
+  border-left: 1px solid #ddd;
+}
+table th, table td {
+  padding: 10px 10px 9px;
+  line-height: 18px;
+  text-align: left;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Items API</h1>
+
+      <div class="article">
+        <h2>get data which kind is expenses</h2>
+        <h3>GET /api/v1/items</h3>
+
+          <h3>Parameters</h3>
+          <table class="parameters table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                    <span class="name">page</span>
+                </td>
+                <td>
+                  <span class="description">Page number</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">happened_after</span>
+                </td>
+                <td>
+                  <span class="description">Created after(Filter Condition)</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">happened_before</span>
+                </td>
+                <td>
+                  <span class="description">Created before(Filter Condition)</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">kind</span>
+                </td>
+                <td>
+                  <span class="description">Items kind(Filter Condition)</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Response Fields</h3>
+          <table class="response-fields table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                    <span class="name">resources[id]</span>
+                </td>
+                <td>
+                  <span class="description">ID</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resources[amount]</span>
+                </td>
+                <td>
+                  <span class="description">Amount</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Request</h3>
+
+            <h4>Headers</h4>
+            <pre class="request headers">Version: HTTP/1.0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMzAxLCJleHAiOjE3MDM5MTUzOTB9.faXpgE80SCln6f0hhWwmwKP6qF4HapEvyQaWY2BX_7Y
+Accept: application/json
+Content-Type: application/json
+Host: example.org
+Cookie: </pre>
+
+          <h4>Route</h4>
+          <pre class="request route highlight">GET /api/v1/items?happened_after=2023-12-20+11%3A49%3A50+%2B0800&amp;happened_before=2024-01-09+11%3A49%3A50+%2B0800&amp;kind=expenses</pre>
+
+            <h4>Query Parameters</h4>
+            <pre class="request query_parameters highlight">happened_after: 2023-12-20 11:49:50 +0800
+happened_before: 2024-01-09 11:49:50 +0800
+kind: expenses</pre>
+
+
+
+            <h3>Response</h3>
+              <h4>Headers</h4>
+              <pre class="response headers">X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 0
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: application/json; charset=utf-8
+Vary: Accept
+ETag: W/&quot;3738f34a5fdc00abbc4ef57305ec9e69&quot;
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 88ce7f8f-895e-4e2d-956c-93166ad8eb1a
+X-Runtime: 0.120588
+Content-Length: 10209</pre>
+            <h4>Status</h4>
+            <pre class="response status">200 OK</pre>
+              <h4>Body</h4>
+              <pre class="response body">{
+  &quot;resources&quot;: [
+    {
+      &quot;id&quot;: 3104,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 1418,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.416Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.416Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3105,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 3178,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.441Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.441Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3106,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 5762,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.462Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.462Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3107,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 8541,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.483Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.483Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3108,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 5950,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.505Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.505Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3109,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 4467,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.527Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.527Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3110,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 3247,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.543Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.543Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3111,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 3791,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.564Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.564Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3112,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 4356,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.589Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.589Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3113,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 7619,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.612Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.612Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3114,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 2763,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.634Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.634Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3115,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 6118,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.656Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.656Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3116,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 1351,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.681Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.681Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3117,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 6809,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.707Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.707Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3118,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 5391,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.729Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.729Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3119,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 6528,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.754Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.754Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3120,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 3561,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.774Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.774Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3121,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 1468,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.794Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.794Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3122,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 2288,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.819Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.819Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3123,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 3059,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.839Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.839Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3124,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 1352,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.860Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.860Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3125,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 4567,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.880Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.880Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3126,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 6897,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.904Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.904Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3127,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 7657,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.923Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.923Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 3128,
+      &quot;user_id&quot;: 1301,
+      &quot;amount&quot;: 6351,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        3595
+      ],
+      &quot;happened_at&quot;: &quot;2023-12-30T03:49:50.404Z&quot;,
+      &quot;created_at&quot;: &quot;2023-12-30T03:49:50.943Z&quot;,
+      &quot;updated_at&quot;: &quot;2023-12-30T03:49:50.943Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 3595,
+          &quot;user_id&quot;: 1301,
+          &quot;name&quot;: &quot;Vol.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;updated_at&quot;: &quot;2023-12-30T03:49:49.771Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    }
+  ],
+  &quot;pager&quot;: {
+    &quot;page&quot;: 1,
+    &quot;per_page&quot;: 25,
+    &quot;count&quot;: 52
+  }
+}</pre>
+      </div>
+    </div>
+  </body>
+</html>
