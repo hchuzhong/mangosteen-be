@@ -39,7 +39,9 @@ class Api::V1::ItemsController < ApplicationController
             .where({user_id: request.env['current_user_id']})
             .where(kind: params[:kind])
             .where(happened_at: params[:happened_after]..params[:happened_before])
+        tags = []
         items.each do |item|
+            tags += item.tags
             if params[:group_by] == 'happened_at'
                 key = item.happened_at.in_time_zone('Beijing').strftime('%F')
                 hash[key] ||= 0
@@ -52,7 +54,11 @@ class Api::V1::ItemsController < ApplicationController
                 end
             end
         end
-        groups = hash.map { |key, value| {"#{params[:group_by]}": key, amount: value} }
+        groups = hash.map { |key, value| {
+            "#{params[:group_by]}": key,
+            amount: value,
+            tag: tags.find { |tag| tag.id == key }
+        }}
         if params[:group_by] == 'happened_at'
             groups.sort! { |a, b| a[:happened_at] <=> b[:happened_at] }
         else
