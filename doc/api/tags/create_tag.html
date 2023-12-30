@@ -137,6 +137,14 @@ table th, table td {
                   <span class="description">Tag sign</span>
                 </td>
               </tr>
+              <tr>
+                <td class="required">
+                    <span class="name">kind</span>
+                </td>
+                <td>
+                  <span class="description">Tag kind</span>
+                </td>
+              </tr>
             </tbody>
           </table>
 
@@ -196,7 +204,7 @@ table th, table td {
 
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMTYxLCJleHAiOjE3MDM3Njk5ODF9.t2u-oSOepSV47ricbWpgnXSiJAOhNk6qm0xQG0lzjks
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDYwLCJleHAiOjE3MDM5MTMwNTN9.D-3f-PsmR6MCFimOszjvN_xedO7dVpqg4dxLYNRKpcs
 Accept: application/json
 Content-Type: application/json
 Host: example.org
@@ -207,7 +215,7 @@ Cookie: </pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"name":"test name","sign":"test sign"}</pre>
+            <pre class="request body">{"name":"name","sign":"test sign","kind":"expenses"}</pre>
 
 
             <h3>Response</h3>
@@ -220,23 +228,23 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;3aaf111d96bc8672770131c93e27f49e&quot;
+ETag: W/&quot;2fb9c2d6d2c24fda45e333270e6c4495&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: b853ba40-28f4-4dc3-a55e-01cac830e7de
-X-Runtime: 0.017971
-Content-Length: 193</pre>
+X-Request-Id: 2caa7d65-f388-4206-9483-ce14d6c19c58
+X-Runtime: 0.008345
+Content-Length: 188</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
   &quot;resource&quot;: {
-    &quot;id&quot;: 2425,
-    &quot;user_id&quot;: 1161,
-    &quot;name&quot;: &quot;test name&quot;,
+    &quot;id&quot;: 3030,
+    &quot;user_id&quot;: 1060,
+    &quot;name&quot;: &quot;name&quot;,
     &quot;sign&quot;: &quot;test sign&quot;,
     &quot;deleted_at&quot;: null,
-    &quot;created_at&quot;: &quot;2023-12-28T11:26:21.222Z&quot;,
-    &quot;updated_at&quot;: &quot;2023-12-28T11:26:21.222Z&quot;,
+    &quot;created_at&quot;: &quot;2023-12-30T03:10:53.882Z&quot;,
+    &quot;updated_at&quot;: &quot;2023-12-30T03:10:53.882Z&quot;,
     &quot;kind&quot;: &quot;expenses&quot;
   }
 }</pre>
