@@ -50,10 +50,14 @@ class Api::V1::TagsController < ApplicationController
         tag = Tag.find params[:id]
         return render status: :forbidden if tag.user_id != current_user.id
         tag.deleted_at = Time.now
-        if tag.save
+        ActiveRecord::Base.transaction do
+            begin
+                tag.save!
+                Item.where('tag_ids && ARRAY[?]::bigint[]', [tag.id]).update!(deleted_at: Time.now) if params[:with_items] == 'true'
+            rescue
+                return render json: { errors: tag.errors }, status: :unprocessable_entity
+            end
             render json: { resource: tag }, status: :ok
-        else
-            render json: { errors: tag.errors }, status: :unprocessable_entity
         end
     end
 end

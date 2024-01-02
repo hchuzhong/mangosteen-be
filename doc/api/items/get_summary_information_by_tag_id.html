@@ -188,7 +188,7 @@ table th, table td {
 
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMTU3LCJleHAiOjE3MDM3Njk5ODB9.a2s6spvuj5X-e0jFa-yPg5GsYVJHF57eH6jAoZlLZTM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMzA0LCJleHAiOjE3MDM5MTUzOTF9.X9Whfkc1RiF8j2-Nt_w67BctzjpDsEGSVHyTBv0lrQ4
 Accept: application/json
 Content-Type: application/json
 Host: example.org
@@ -215,27 +215,57 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;0c6fc2921bcea6169e93725df1749300&quot;
+ETag: W/&quot;269729b179c869ee636f08df36cecd48&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 28eebd04-c1e0-4c17-8f11-4abd121d31f0
-X-Runtime: 0.013243
-Content-Length: 111</pre>
+X-Request-Id: 13b3f01b-90a8-475f-b44a-de0f6fedeb98
+X-Runtime: 0.043446
+Content-Length: 641</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
   &quot;groups&quot;: [
     {
-      &quot;tag_id&quot;: 2397,
-      &quot;amount&quot;: 500
+      &quot;tag_id&quot;: 3601,
+      &quot;amount&quot;: 500,
+      &quot;tag&quot;: {
+        &quot;id&quot;: 3601,
+        &quot;user_id&quot;: 1304,
+        &quot;name&quot;: &quot;Mai.&quot;,
+        &quot;sign&quot;: &quot;❤&quot;,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2023-12-30T03:49:51.623Z&quot;,
+        &quot;updated_at&quot;: &quot;2023-12-30T03:49:51.623Z&quot;,
+        &quot;kind&quot;: &quot;expenses&quot;
+      }
     },
     {
-      &quot;tag_id&quot;: 2395,
-      &quot;amount&quot;: 400
+      &quot;tag_id&quot;: 3599,
+      &quot;amount&quot;: 400,
+      &quot;tag&quot;: {
+        &quot;id&quot;: 3599,
+        &quot;user_id&quot;: 1304,
+        &quot;name&quot;: &quot;Nec.&quot;,
+        &quot;sign&quot;: &quot;😀&quot;,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2023-12-30T03:49:51.568Z&quot;,
+        &quot;updated_at&quot;: &quot;2023-12-30T03:49:51.568Z&quot;,
+        &quot;kind&quot;: &quot;expenses&quot;
+      }
     },
     {
-      &quot;tag_id&quot;: 2396,
-      &quot;amount&quot;: 300
+      &quot;tag_id&quot;: 3600,
+      &quot;amount&quot;: 300,
+      &quot;tag&quot;: {
+        &quot;id&quot;: 3600,
+        &quot;user_id&quot;: 1304,
+        &quot;name&quot;: &quot;Iur.&quot;,
+        &quot;sign&quot;: &quot;😡&quot;,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2023-12-30T03:49:51.597Z&quot;,
+        &quot;updated_at&quot;: &quot;2023-12-30T03:49:51.597Z&quot;,
+        &quot;kind&quot;: &quot;expenses&quot;
+      }
     }
   ],
   &quot;total&quot;: 600
