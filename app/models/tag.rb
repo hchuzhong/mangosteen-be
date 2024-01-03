@@ -6,4 +6,8 @@ class Tag < ApplicationRecord
   validates :name, length: { maximum: 4 }
   validates :sign, presence: true
   belongs_to :user
+
+  def self.default_scope
+    where(deleted_at: nil)
+  end
 end
