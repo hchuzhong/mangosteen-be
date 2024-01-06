@@ -28,6 +28,13 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  activemodel:
+    errors:
+      models:
+        sessions:
+          not_found: not found
+      messages:
+        invalid: invalid formation
+        blank: can't be blank
+        not_found: not found
