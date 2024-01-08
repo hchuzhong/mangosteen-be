@@ -90,7 +90,7 @@ RSpec.describe "Items", type: :request do
       expect(json['resource']['id']).to be_an(Numeric)
       expect(json['resource']['amount']).to eq 99
       expect(json['resource']['user_id']).to eq user.id
-      expect(json['resource']['happened_at']).to eq '2017-12-31T16:00:00.000Z'
+      expect(json['resource']['happened_at']).to eq '2018-01-01T00:00:00.000+08:00'
     end
     it "can't create an item without required params(amount, tag_ids, happened_at)" do
       user = create :user
