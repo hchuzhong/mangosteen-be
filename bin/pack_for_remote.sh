@@ -37,7 +37,7 @@ title '打包前端代码'
 mkdir -p $frontend_dir
 rm -rf $frontend_dir/repo
 git clone git@github.com:hchuzhong/mangosteen-fe.git $frontend_dir/repo
-cd $frontend_dir/repo && pnpm install && pnpm run build; cd -
+cd $frontend_dir/repo && pnpm install && pnpm run build || exit 3; cd -
 tar -cz -f "$frontend_dir/dist.tar.gz" -C "$frontend_dir/repo/dist" .
 title '创建远程目录'
 ssh $user@$ip "mkdir -p $deploy_dir/vendor"
