@@ -4,7 +4,7 @@ class Tag < ApplicationRecord
   enum kind: { expenses: 1, income: 2 }
   validates :kind, presence: true
   validates :name, presence: true
-  validates :name, length: { maximum: 4 }
+  validates :name, length: { maximum: 18 }
   validates :sign, presence: true
   belongs_to :user
 end
