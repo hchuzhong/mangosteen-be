@@ -11,6 +11,8 @@ class Session
         return if Rails.env.test? and self.code == '123456'
         return if self.email.empty?
         return if self.code.empty?
-        self.errors.add :email, :not_found unless ValidationCode.exists? email: self.email, code: self.code, used_at: nil
+        return self.errors.add :email, 'email not found' unless ValidationCode.exists? email: self.email
+        return self.errors.add :code, 'invalid code' unless ValidationCode.exists? email: self.email, code: self.code
+        self.errors.add :code, 'this code had been used' unless ValidationCode.exists? email: self.email, code: self.code, used_at: nil
     end
 end
