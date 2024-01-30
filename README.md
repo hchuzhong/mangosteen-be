@@ -11,6 +11,8 @@ ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-linux]
 
 * System dependencies
 
+docker
+
 * Configuration
 
 ```
@@ -19,9 +21,9 @@ bundle config mirror.https://rubygems.org https://gems.ruby-china.com
 gem install rails -v 7.0.2.3
 pacman -S postgresql-libs
 cd ~/repos
-rails new --api --database=postgresql --skip-test mangosteen-1
-code mangosteen-1
-// 新建终端
+rails new --api --database=postgresql --skip-test mangosteen
+code mangosteen
+// open a new terminal
 bundle exe rails server
 ```
 
@@ -33,10 +35,22 @@ docker run -d      --name db-for-mangosteen      -e POSTGRES_USER=mangosteen    
 
 * Database initialization
 
+bin/rails db:migrate RAILS_ENV=development
+
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+rspec
+
+tips: rember start db-for-mangosteen before run rspec
 
 * Deployment instructions
 
-* ...
+bin/pack_for_remote.sh
+
+* Development
+
+bin/rails s
+
+or
+
+bundle exe rails s
